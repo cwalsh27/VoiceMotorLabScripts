@@ -21,7 +21,7 @@ for col in range(1, 66):  # 66 is just three iterations of the alphabet, number 
         vowelCol = col
 
 
-# new sheet
+# new sheets for data of interest
 ws2 = wb.create_sheet('refined_data.xlsx')
 ws3 = wb.create_sheet('trial_start_times.xlsx')
 
