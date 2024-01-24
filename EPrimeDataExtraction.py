@@ -40,9 +40,15 @@ for goodTrial in goodTrials:
     row += 1
 
 # populate trial_start_times
-for i in range(1, len(onsetTimes)):
+ws3.cell(1, 1).value = str("Onset Time")
+ws3.cell(1, 2).value = str("Pitch Presentation")
+ws3.cell(1, 3).value = str("Metronome Onset")
+for i in range(2, len(onsetTimes)+1):
     if onsetTimes[i]:
         ws3.cell(i, 1).value = str(onsetTimes[i])
+        ws3.cell(i, 2).value = str(onsetTimes[i]+2400)
+        ws3.cell(i, 3).value = str(onsetTimes[i]+4000)
+
 
 # calculate vowel biases
 vowelString = ""
