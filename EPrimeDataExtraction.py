@@ -46,8 +46,8 @@ ws3.cell(1, 3).value = str("Metronome Onset")
 for i in range(2, len(onsetTimes)+1):
     if onsetTimes[i-1]:
         ws3.cell(i, 1).value = str(onsetTimes[i])
-        ws3.cell(i, 2).value = str(onsetTimes[i]+2400)
-        ws3.cell(i, 3).value = str(onsetTimes[i]+4000)
+        ws3.cell(i, 2).value = str(int(onsetTimes[i])+2400)
+        ws3.cell(i, 3).value = str(int(onsetTimes[i])+4000)
 
 
 # calculate vowel biases
