@@ -64,7 +64,7 @@ for filename in os.listdir():
         OuCount = vowelString.count("a - Ɔ - o - Ʊ – u – Ʊ – o – Ɔ – a")
         AaCount = vowelString.count("A / A")
         vowelCounts = [EaCount, OuCount, AaCount]
-
+        '''
         row += 5
         ws2.cell(row, 1).value = "æ -ɛ - e - ɪ - i - ɪ- e - ɛ- æ"
         ws2.cell(row+1, 1).value = "a - Ɔ - o - Ʊ – u – Ʊ – o – Ɔ – a"
@@ -72,7 +72,7 @@ for filename in os.listdir():
 
         for i in range(0, 3):
             ws2.cell(row+i, 2).value = vowelCounts[i]
-
+        '''
         # save spreadsheet changes
         outputFilename = "extracted" + str(filename)
         wb.save(outputFilename)
