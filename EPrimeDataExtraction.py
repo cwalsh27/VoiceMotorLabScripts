@@ -71,7 +71,7 @@ for filename in os.listdir():
             ws2.cell(row+i, 2).value = vowelCounts[i]
 
         # save spreadsheet changes
-        outputFilename = "refined" + str(filename)
+        outputFilename = "extracted" + str(filename)
         wb.save(outputFilename)
 
 
