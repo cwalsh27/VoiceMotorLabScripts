@@ -3,7 +3,7 @@ del open
 
 
 # Load row numbers of selected trials
-wb = load_workbook("input_data.xlsx")
+wb = load_workbook("*.xlsx")
 ws = wb.active
 
 goodTrials = [(1, 0)]  # list of row numbers for button press trials, includes header row
