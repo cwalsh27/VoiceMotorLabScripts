@@ -12,11 +12,11 @@ for filename in os.listdir():
         onsetTimes = []
         vowelCol = 0
         for col in range(1, 66):  # 66 is just three iterations of the alphabet, number is arbitrary
-            if str(ws.cell(1, col).value).endswith('.RESP') and ('welcome' not in ws.cell(1, col).value):
+            if str(ws.cell(1, col).value).endswith('.RESP') and ('welcome' not in ws.cell(1, col).value.lower()):
                 for row in range(2, 80):  # 80 to account for extra rows, 2 to skip line header
                     if str(ws.cell(row, col).value) != "None":
                         goodTrials.append((row, ws.cell(row, col+1).value))
-            if str(ws.cell(1, col).value).endswith('.OnsetTime') and 'welcome' not in ws.cell(1, col).value:
+            if str(ws.cell(1, col).value).endswith('.OnsetTime') and ('welcome' not in ws.cell(1, col).value.lower()):
                 for row in range(1, 80):
                     onsetTimes.append(ws.cell(row, col).value)
             if ws.cell(1, col).value == 'vowels':
