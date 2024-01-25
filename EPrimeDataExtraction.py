@@ -76,7 +76,7 @@ for filename in os.listdir():
 
 
         # create/populate vowelBias text file
-        vowelFile = open(filename[:-5] + "vowelBias.txt", "w")
+        vowelFile = open(filename[:-5] + "VowelBias.txt", "w")
         vowelFile.write("Ea Count: " + str(EaCount) + "\n")
         vowelFile.write("Ou Count: " + str(OuCount) + "\n")
         vowelFile.write("A/A Count: " + str(AaCount) + "\n")
