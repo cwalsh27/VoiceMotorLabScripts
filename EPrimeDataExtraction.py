@@ -5,7 +5,7 @@ del open
 for filename in os.listdir():
     if filename.endswith(".xlsx"):
         # Load row numbers of selected trials
-        wb = load_workbook("filename")
+        wb = load_workbook(filename)
         ws = wb.active
 
         goodTrials = [(1, 0)]  # list of row numbers for button press trials, includes header row
