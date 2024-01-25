@@ -32,14 +32,17 @@ for filename in os.listdir():
 
         # populate refined_data
         row = 1
-        for goodTrial in goodTrials:
-            for col in range(1, 66):
-                if (goodTrial[1] > 0) and (goodTrial[1] < 3000):
-                    testVal = ws.cell(goodTrial[0]-1, col).value
-                    ws2.cell(row, col).value = testVal
-            if goodTrial[0] > 1:
-                goodVowels.append(ws.cell(goodTrial[0]-1, vowelCol).value)
-            row += 1
+        if len(goodTrials) > 1:
+            for goodTrial in goodTrials:
+                for col in range(1, 66):
+                    if (goodTrial[1] > 0) and (goodTrial[1] < 3000):
+                        testVal = ws.cell(goodTrial[0]-1, col).value
+                        ws2.cell(row, col).value = testVal
+                if goodTrial[0] > 1:
+                    goodVowels.append(ws.cell(goodTrial[0]-1, vowelCol).value)
+                row += 1
+        else:
+            ws2.cell(1, 1).value = "No button presses during this trial"
 
         # populate trial_start_times
         ws3.cell(1, 1).value = str("Onset Time")
