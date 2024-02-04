@@ -23,6 +23,7 @@ for filename in os.listdir():
                 vowelCol = col
 
 
+
         # new sheets for data of interest
         ws2 = wb.create_sheet('refined_data.xlsx')
         ws3 = wb.create_sheet('trial_start_times.xlsx')
@@ -83,3 +84,4 @@ for filename in os.listdir():
         vowelFile.write("Ea Count: " + str(EaCount) + "\n")
         vowelFile.write("Ou Count: " + str(OuCount) + "\n")
         vowelFile.write("A/A Count: " + str(AaCount) + "\n")
+        vowelFile.close()
