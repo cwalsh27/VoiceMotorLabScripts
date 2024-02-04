@@ -17,9 +17,9 @@ for filename in os.listdir():
         for line in file:
             colonIndex = line.find(":")
             vowelFreqs.append(line[colonIndex+2:].strip)
-        EaCount += vowelFreqs[0]
-        OuCount += vowelFreqs[1]
-        AaCount += vowelFreqs[2]
+        EaCount += int(vowelFreqs[0])
+        OuCount += int(vowelFreqs[1])
+        AaCount += int(vowelFreqs[2])
 
 
 newFile = open(subjcectName + "vowelSummary.txt", "w")
