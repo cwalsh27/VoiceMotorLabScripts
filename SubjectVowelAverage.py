@@ -11,7 +11,7 @@ subjcectName = ""
 
 for filename in os.listdir():
     if filename.endswith("VowelBias.txt"):
-        subjcectName = filename[:-13]
+        subjectName = filename[:2]
         vowelFreqs = []
         file = open(filename)
         for line in file:
