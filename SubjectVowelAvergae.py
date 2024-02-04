@@ -22,7 +22,7 @@ for filename in os.listdir():
         AaCount += vowelFreqs[2]
 
 
-newFile = open(subjcectName, "w")
+newFile = open(subjcectName + "vowelSummary.txt", "w")
 newFile.write("Total Ea Count: " + str(EaCount) + "\n")
 newFile.write("Total Ou Count: " + str(OuCount) + "\n")
 newFile.write("Total A/A Count: " + str(AaCount) + "\n")
