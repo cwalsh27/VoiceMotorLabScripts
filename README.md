@@ -1,4 +1,4 @@
-# EPrimeDataExtraction
+# E-PrimeDataExtraction
 WIP Script to extract key data points collected during MRI analysis under Aude Cardona & Dr. Katherine Verdolini Abbott, Udel Voice & Motor Lab
 
 
