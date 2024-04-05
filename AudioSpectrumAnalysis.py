@@ -4,17 +4,24 @@ import numpy as np
 import seaborn as sns
 from glob import glob
 
+
 import librosa
 import librosa.display
 import IPython.display as ipd
+import soundfile as sf
+import os
 
 from itertools import cycle
 
-file, sr = librosa.load('Sound_Effects_TTL_2023-05-10,10;19;25.wav')
-# print(f'y: {file[:10]}')
-# print(f'shape y: {file.shape}')
-# print(f'sr: {sr}')
-print(librosa.get_duration(y=file, sr=sr))  # uses metadata, not actual length of wave
+
+audio_dir = r'AudioFiles'
+
+desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
+out_dir = os.path.join(desktop_path, "timeSplits")
+
+audio_file = os.path.join(audio_dir, 'Sound_Effects_TTL_2023-05-10,10;19;25.wav')
+
+file, sr = librosa.load(audio_file)
 
 segmentDurationS = 20
 segment_length = sr * segmentDurationS
@@ -82,8 +89,8 @@ print(segment_length)
 
 averages = []
 intervalStart = 0
-intervalEnd = 0.1
-segment_length = 200
+intervalEnd = 0.01
+segment_length = 2000
 print("AVERAGES BY S:")
 for i in range(int(segment_length)):
     currentInterval = file[int(intervalStart * sr): int(intervalEnd * sr)]
@@ -91,8 +98,38 @@ for i in range(int(segment_length)):
     averages.append(currentAverage)
     print(intervalStart, ", ", intervalEnd, ":  ", int(currentAverage))
     intervalStart = intervalEnd
-    intervalEnd = intervalEnd + 0.1
+    intervalEnd = intervalEnd + 0.01
 # print(averages)
+
+
+# Code for identifying start point
+goldenPoint = 0
+for i in range(1300, 1900):
+    currentAverage = averages[i]
+    if averages[i] <= 100:
+        if (averages[i-1] <= 100) and (averages[i+1] <= 100):
+            goldenPoint = i / 100 - 0.01
+            break
+
+print(f"Golden Start Point: {goldenPoint}")
+
+
+# CODE FOR SPLITTING INTO INTERVALS
+newSegLength = 4
+
+newSegments = []
+
+for i in range(148):   #148 number is number of remaining trials doubled, for two four second intervals per trial
+    t = file[int(sr * (goldenPoint + (i * newSegLength))): int(sr * (goldenPoint + ((i + 1) * newSegLength)))]
+    newSegments.append(t)
+
+print(newSegments)
+
+for i in range(148):
+    recording_name = os.path.basename(audio_file[:-4])
+    out_file = f"{recording_name}_{str(i+1)}.wav"
+    print(out_file)
+    sf.write(os.path.join(out_dir, out_file), newSegments[i], sr)
 
 
 
