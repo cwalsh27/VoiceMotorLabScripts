@@ -8,11 +8,15 @@ import soundfile as sf
 # defines path to desktop files
 desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
 audio_dir = os.path.join(desktop_path, 'AudioFiles')
-out_dir = os.path.join(desktop_path, "timeSplits/24")
 
 audio_files = os.listdir(audio_dir)
-audio_file_name = audio_files[0]
+audio_file_name = audio_files[0]    # does not function correctly, find alternative
+print(audio_file_name)
 audio_file_path = os.path.join(audio_dir, audio_file_name)
+
+out_dir = os.path.join(audio_dir, audio_file_name[0:-4])
+if not os.path.exists(out_dir):
+    os.mkdir(out_dir)
 
 file, sr = librosa.load(audio_file_path)
 
