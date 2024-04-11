@@ -8,11 +8,13 @@ import soundfile as sf
 # defines path to desktop files
 desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
 audio_dir = os.path.join(desktop_path, 'AudioFiles')
-out_dir = os.path.join(desktop_path, "timeSplits/20")
+out_dir = os.path.join(desktop_path, "timeSplits/24")
 
-audio_file = os.path.join(audio_dir, 'NR_DSP_OUT_2023-05-09,10_14_20.wav')
+audio_files = os.listdir(audio_dir)
+audio_file_name = audio_files[0]
+audio_file_path = os.path.join(audio_dir, audio_file_name)
 
-file, sr = librosa.load(audio_file)
+file, sr = librosa.load(audio_file_path)
 
 
 # mean frequency calculation
@@ -102,7 +104,7 @@ if(approvedGolden.lower()=="y"):
             case "r":
                 vType = "rest"
 # assembles new file name from old file name, with segment/trial number and vType
-        recording_name = os.path.basename(audio_file[:-4])
+        recording_name = os.path.basename(audio_file_path[:-4])
         out_file = f"{recording_name}_T{str(i+3)}_{vType}.wav"
         print(out_file)
         if vType != "rest":
