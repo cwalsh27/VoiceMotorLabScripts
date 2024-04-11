@@ -5,7 +5,7 @@ import os
 import librosa
 import soundfile as sf
 
-
+# defines path to desktop files
 desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
 audio_dir = os.path.join(desktop_path, 'AudioFiles')
 out_dir = os.path.join(desktop_path, "timeSplits/20")
@@ -33,7 +33,7 @@ def find_average_frequency(signal, sr=sr):
     return frequency[int(temp)]
 
 
-# CODE FOR PLOTTING MAGNITUDE SPECTRUM
+# PLOTTING MAGNITUDE SPECTRUM (not used in current script)
 def plot_magnitude_spectrum(signal, title, sr, f_ratio=1):
     ft = np.fft.fft(signal)
     magnitude_spectrum = np.abs(ft)
@@ -65,7 +65,7 @@ for i in range(int(segment_length)):
     intervalEnd = intervalEnd + 0.01
 
 
-# Code for identifying start point
+# Code for identifying golden point (start of the first glide vocal exercise, aka trial 3)
 goldenPoint = 0
 for i in range(2800, 3200):
     currentAverage = averages[i]
@@ -76,11 +76,11 @@ for i in range(2800, 3200):
 
 approvedGolden = input(f"The start point is {goldenPoint}. Is this correct? (Y/N)")
 
+# CODE FOR SPLITTING INTO INTERVALS; only when golden point is correct
 if(approvedGolden.lower()=="y"):
-    # CODE FOR SPLITTING INTO INTERVALS
     newSegLength = 4
     newSegments = []
-    # e=EE vowels, o = AH vowels, g = glide, r = rest
+    # e=EE/high vowels, o = AH/back vowels, g = glide, r = rest
     intervalOrder = "groegrgeorgoereogrgeorgoerogergeorogeregoreogroegrogeroegrogergoergeoreogr"
     print(len(intervalOrder))
 
@@ -89,6 +89,7 @@ if(approvedGolden.lower()=="y"):
         t = file[int(sr * (goldenPoint + (i * newSegLength))): int(sr * (goldenPoint + ((i + 1) * newSegLength)))]
         newSegments.append(t)
 
+# calculates type of vocal exercise and stores in vType to be appended to the file name
     vType = ""
     for i in range(74):
         match intervalOrder[i]:
@@ -100,6 +101,7 @@ if(approvedGolden.lower()=="y"):
                 vType = "glide"
             case "r":
                 vType = "rest"
+# assembles new file name from old file name, with segment/trial number and vType
         recording_name = os.path.basename(audio_file[:-4])
         out_file = f"{recording_name}_T{str(i+3)}_{vType}.wav"
         print(out_file)
