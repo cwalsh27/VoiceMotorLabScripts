@@ -12,6 +12,7 @@ subjcectName = ""
 for filename in os.listdir():
     if filename.endswith("VowelBias.txt"):
         subjectName = filename[:2]
+        print(subjectName)
         vowelFreqs = []
         file = open(filename)
         for line in file:
@@ -20,8 +21,8 @@ for filename in os.listdir():
         EaCount += int(vowelFreqs[0])
         OuCount += int(vowelFreqs[1])
         AaCount += int(vowelFreqs[2])
-
-newFile = open(subjcectName + "vowelSummary.txt", "w")
+print(subjectName)
+newFile = open(subjectName + "vowelSummary.txt", "w")
 newFile.write("Total Ea Count: " + str(EaCount) + "\n")
 newFile.write("Total Ou Count: " + str(OuCount) + "\n")
 newFile.write("Total A/A Count: " + str(AaCount) + "\n")
