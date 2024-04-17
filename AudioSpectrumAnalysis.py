@@ -10,15 +10,17 @@ desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
 audio_dir = os.path.join(desktop_path, 'AudioFiles')
 
 audio_files = os.listdir(audio_dir)
-audio_file_name = audio_files[0]    # does not function correctly, find alternative
-print(audio_file_name)
+for file in audio_files:
+    if file.endswith(".wav"):
+        audio_file_name = file
+# audio_file_name = audio_files[2]    # temp fix, find alternative
+print(audio_files)
 audio_file_path = os.path.join(audio_dir, audio_file_name)
 
-out_dir = os.path.join(audio_dir, audio_file_name[0:-4])
-if not os.path.exists(out_dir):
-    os.mkdir(out_dir)
+out_dir = os.path.join(audio_dir, audio_file_name[0:-4] + "_segments")
 
 file, sr = librosa.load(audio_file_path)
+
 
 
 # mean frequency calculation
@@ -60,7 +62,7 @@ def plot_magnitude_spectrum(signal, title, sr, f_ratio=1):
 averages = []
 intervalStart = 0
 intervalEnd = 0.01
-segment_length = 3500
+segment_length = 5000
 print("AVERAGES BY S:")
 for i in range(int(segment_length)):
     currentInterval = file[int(intervalStart * sr): int(intervalEnd * sr)]
@@ -73,17 +75,22 @@ for i in range(int(segment_length)):
 
 # Code for identifying golden point (start of the first glide vocal exercise, aka trial 3)
 goldenPoint = 0
-for i in range(2800, 3200):
+for i in range(3100, 3400):
     currentAverage = averages[i]
     if averages[i] <= 100:
         if (averages[i-1] <= 100) and (averages[i+1] <= 100) and (averages[i+2] <= 100) and (averages[i+3] <= 100):
             goldenPoint = i / 100 - 0.01
             break
 
+# goldenPoint = 32.8
 approvedGolden = input(f"The start point is {goldenPoint}. Is this correct? (Y/N)")
 
 # CODE FOR SPLITTING INTO INTERVALS; only when golden point is correct
 if(approvedGolden.lower()=="y"):
+    # make output folder
+    if not os.path.exists(out_dir):
+        os.mkdir(out_dir)
+
     newSegLength = 4
     newSegments = []
     # e=EE/high vowels, o = AH/back vowels, g = glide, r = rest
