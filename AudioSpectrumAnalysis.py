@@ -8,11 +8,19 @@ import soundfile as sf
 # defines path to desktop files
 desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
 audio_dir = os.path.join(desktop_path, 'AudioFiles')
-out_dir = os.path.join(desktop_path, "timeSplits/20")
 
-audio_file = os.path.join(audio_dir, 'NR_DSP_OUT_2023-05-09,10_14_20.wav')
+audio_files = os.listdir(audio_dir)
+for file in audio_files:
+    if file.endswith(".wav"):
+        audio_file_name = file
+# audio_file_name = audio_files[2]    # temp fix, find alternative
+print(audio_files)
+audio_file_path = os.path.join(audio_dir, audio_file_name)
 
-file, sr = librosa.load(audio_file)
+out_dir = os.path.join(audio_dir, audio_file_name[0:-4] + "_segments")
+
+file, sr = librosa.load(audio_file_path)
+
 
 
 # mean frequency calculation
@@ -54,7 +62,7 @@ def plot_magnitude_spectrum(signal, title, sr, f_ratio=1):
 averages = []
 intervalStart = 0
 intervalEnd = 0.01
-segment_length = 3500
+segment_length = 5000
 print("AVERAGES BY S:")
 for i in range(int(segment_length)):
     currentInterval = file[int(intervalStart * sr): int(intervalEnd * sr)]
@@ -67,17 +75,22 @@ for i in range(int(segment_length)):
 
 # Code for identifying golden point (start of the first glide vocal exercise, aka trial 3)
 goldenPoint = 0
-for i in range(2800, 3200):
+for i in range(3100, 3400):
     currentAverage = averages[i]
     if averages[i] <= 100:
         if (averages[i-1] <= 100) and (averages[i+1] <= 100) and (averages[i+2] <= 100) and (averages[i+3] <= 100):
             goldenPoint = i / 100 - 0.01
             break
 
+# goldenPoint = 32.8
 approvedGolden = input(f"The start point is {goldenPoint}. Is this correct? (Y/N)")
 
 # CODE FOR SPLITTING INTO INTERVALS; only when golden point is correct
 if(approvedGolden.lower()=="y"):
+    # make output folder
+    if not os.path.exists(out_dir):
+        os.mkdir(out_dir)
+
     newSegLength = 4
     newSegments = []
     # e=EE/high vowels, o = AH/back vowels, g = glide, r = rest
@@ -102,7 +115,7 @@ if(approvedGolden.lower()=="y"):
             case "r":
                 vType = "rest"
 # assembles new file name from old file name, with segment/trial number and vType
-        recording_name = os.path.basename(audio_file[:-4])
+        recording_name = os.path.basename(audio_file_path[:-4])
         out_file = f"{recording_name}_T{str(i+3)}_{vType}.wav"
         print(out_file)
         if vType != "rest":

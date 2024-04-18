@@ -1,29 +1,43 @@
 import os
+from docx import Document
 
-text_dir = r'TextFiles'
-text_file = os.path.join(text_dir, 'TextFiles/CSSPRING20230512-181729_Recording_1280x720.docx')
+desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
+doc_path = os.path.join(desktop_path, r'TextFiles/CSSPRING20230512-181729_Recording_1280x720_MM.docx')
+new_doc_path = os.path.join(desktop_path, r'TextFiles/outputFile')
 
-def add_line_numbers(filename):
-    try:
-        # Open the file in read mode
-        with open(filename, 'r') as file:
-            # Read the content of the file
-            lines = file.readlines()
+doc = Document(doc_path)
+newDoc = Document()
 
-        # Open the file in write mode to overwrite the content with line numbers
-        with open(filename, 'w') as file:
-            # Iterate over each line and add line numbers
-            for i, line in enumerate(lines, start=1):
-                if i % 2 == 1:
-                    file.write(f"B{i}: {line}")
-                else:
-                    file.write(f"A{i}: {line}")
+# Text processing
+# def strip_trailing_spaces(text):
+#     return '\n'.join(line.rstrip() for line in text.split('\n'))
+#
+# for paragraph in doc.paragraphs:
+#     paragraph.text = strip_trailing_spaces(paragraph.text)
 
+# appending line labels
+last_speaker_B = False
+lines = []
+count = 0
 
-        print("Line numbers added successfully.")
-    except FileNotFoundError:
-        print("File not found.")
+for para in doc.paragraphs:
+    newP = newDoc.add_paragraph('')
+    if para.text[0:2] == "((" and para.text[-2:] == "))":
+        newP.add_run(para.text)
+    else:
+        if any(run.bold for run in para.runs) and not last_speaker_B:
+            newP.add_run(f'B{count+1}: {para.text}').bold = True
+            last_speaker_B = True
+            count += 1
+        elif any(run.bold for run in para.runs) and last_speaker_B:
+            newP.add_run(para.text).bold = True
+            count += 1
+        elif last_speaker_B:
+            newP.add_run(f'A{count + 1}: {para.text}')
+            last_speaker_B = False
+            count += 1
+        else:
+            newP.add_run(para.text)
+            count += 1
 
-# Example usage
-filename = 'example.txt'  # Replace 'example.txt' with your file name
-add_line_numbers('TextFiles/CSSPRING20230512-181729_Recording_1280x720.txt')
+newDoc.save('outputFile.docx')
