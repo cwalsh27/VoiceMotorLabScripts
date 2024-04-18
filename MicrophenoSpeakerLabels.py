@@ -40,4 +40,4 @@ for para in doc.paragraphs:
             newP.add_run(para.text)
             count += 1
 
-newDoc.save('output.docx')
+newDoc.save('newfile.docx')
