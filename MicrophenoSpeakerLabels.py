@@ -14,9 +14,9 @@ last_speaker_B = False
 lines = []
 count = 0
 
-for para in doc.paragraphs:
-    for run in para.runs:
-        print(run.text, "\n")
+# for para in doc.paragraphs:
+#     for run in para.runs:
+#         print(run.text, "\n")
 
 # original draft
 
@@ -45,14 +45,14 @@ for para in doc.paragraphs:
             count += 1
         elif any((run.bold and check_valid_run(run)) for run in para.runs) and last_speaker_B:
             newP.add_run(para.text).bold = True
-            count += 1
+            # count += 1
         elif last_speaker_B:
             newP.add_run(f'A{count + 1}: {para.text}')
             last_speaker_B = False
             count += 1
         else:
             newP.add_run(para.text)
-            count += 1
+            # count += 1
 
 newDoc.save('newfile.docx')
 
