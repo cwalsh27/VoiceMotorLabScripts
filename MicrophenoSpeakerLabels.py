@@ -18,7 +18,7 @@ count = 0
 #     for run in para.runs:
 #         print(run.text, "\n")
 
-
+# original draft
 for para in doc.paragraphs:
     newP = newDoc.add_paragraph('')
     if para.text[0:2] == "((" and para.text[-2:] == "))":
@@ -42,6 +42,9 @@ for para in doc.paragraphs:
 newDoc.save('newfile.docx')
 
 
+
+
+# 2.0
 for para in doc.paragraphs:
     newP = newDoc.add_paragraph('')
     # check for double paranthetical
@@ -50,7 +53,13 @@ for para in doc.paragraphs:
     else:
         # check for non-bold brackets at start of string
         if para.text[0] == "[":
-            # deal with that
+            bracketIndex = para.text.find("]")
+            for run in para.runs:
+                if run.text[-1]!="\n" and run.bold:
+                    # do something about it
+
+            # TO DO: make helper functions for different line types and then implement
+
         else:
             # check for
             if para.runs[0].bold and not last_speaker_B:
