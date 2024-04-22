@@ -14,21 +14,36 @@ last_speaker_B = False
 lines = []
 count = 0
 
-# for para in doc.paragraphs:
-#     for run in para.runs:
-#         print(run.text, "\n")
+for para in doc.paragraphs:
+    for run in para.runs:
+        print(run.text, "\n")
 
 # original draft
+
+skipChars = [".", ",", " ", "[", "]"]
+
+def check_valid_run(run):
+    validChar = False
+    for char in run.text:
+        if char not in skipChars:
+            validChar = True
+    if validChar:
+        return True
+    else:
+        return False
+
+
+
 for para in doc.paragraphs:
     newP = newDoc.add_paragraph('')
     if para.text[0:2] == "((" and para.text[-2:] == "))":
         newP.add_run(para.text)
     else:
-        if any(run.bold for run in para.runs) and not last_speaker_B:
+        if any((run.bold and check_valid_run(run)) for run in para.runs) and not last_speaker_B:
             newP.add_run(f'B{count+1}: {para.text}').bold = True
             last_speaker_B = True
             count += 1
-        elif any(run.bold for run in para.runs) and last_speaker_B:
+        elif any((run.bold and check_valid_run(run)) for run in para.runs) and last_speaker_B:
             newP.add_run(para.text).bold = True
             count += 1
         elif last_speaker_B:
@@ -41,6 +56,7 @@ for para in doc.paragraphs:
 
 newDoc.save('newfile.docx')
 
+'''
 
 def parenthetical_check(paragraph):
     if paragraph.text[0::2] == "((" and para.text[-2:] == "))":
@@ -50,7 +66,13 @@ def parenthetical_check(paragraph):
 
 def bold_bracket_check(paragraph):
     if "]" in para.text:
-        # deal with that
+        bracketFound = False
+        for run in para.runs:
+            if "]" in run.text:
+                bracketFound = True
+            elif bracketFound and "\n" not in run.text:
+                if run.bold:
+                    return True
     else:
         # deal with interruption clause
     print("nailed it again")
@@ -106,3 +128,4 @@ for para in doc.paragraphs:
         else:
             newP.add_run(para.text)
             count += 1
+'''
