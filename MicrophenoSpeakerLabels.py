@@ -8,12 +8,6 @@ new_doc_path = os.path.join(desktop_path, r'TextFiles/outputFile')
 doc = Document(doc_path)
 newDoc = Document()
 
-# Text processing
-# def strip_trailing_spaces(text):
-#     return '\n'.join(line.rstrip() for line in text.split('\n'))
-#
-# for paragraph in doc.paragraphs:
-#     paragraph.text = strip_trailing_spaces(paragraph.text)
 
 # appending line labels
 last_speaker_B = False
