@@ -22,8 +22,6 @@ for filename in os.listdir():
             if ws.cell(1, col).value == 'vowels':
                 vowelCol = col
 
-
-
         # new sheets for data of interest
         ws2 = wb.create_sheet('refined_data.xlsx')
         ws3 = wb.create_sheet('trial_start_times.xlsx')
@@ -47,13 +45,13 @@ for filename in os.listdir():
 
         # populate trial_start_times
         ws3.cell(1, 1).value = str("Onset Time")
-        #ws3.cell(1, 2).value = str("Pitch Presentation")
-        #ws3.cell(1, 3).value = str("Metronome Onset")
+        # ws3.cell(1, 2).value = str("Pitch Presentation")
+        # ws3.cell(1, 3).value = str("Metronome Onset")
         for i in range(2, len(onsetTimes)+1):
             if onsetTimes[i-1]:
                 ws3.cell(i, 1).value = str(onsetTimes[i-1])
-                #ws3.cell(i, 2).value = str(int(onsetTimes[i-1])+2400)
-                #ws3.cell(i, 3).value = str(int(onsetTimes[i-1])+4000)
+                # ws3.cell(i, 2).value = str(int(onsetTimes[i-1])+2400)
+                # ws3.cell(i, 3).value = str(int(onsetTimes[i-1])+4000)
 
 
         # calculate vowel biases
