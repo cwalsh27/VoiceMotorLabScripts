@@ -5,4 +5,9 @@ EPrimeDataExtraction.py: Takes in data sheets from E-Prime scripts and isolates 
 
 SubjectVowelAverage.py: Takes any number of vowel files produced by a single subject and sums the totals. 
 
-For full documentation of EPrimeDataExtraction.py, visit this link: https://docs.google.com/document/d/1crWyT08_CYKONnQpzkIEu2QdWT1SgIVKUMWDVSswfDw/edit?usp=sharing
+AudioSpectrumAnalysis.py: Automates extraction of four-second intervals by finding frequency changes in specific regions of larger audio files (based on shifts in MRI noise and vocalizations from the subject) 
+
+MicrophenoSpeakerLabels.py: Text editor that automatically marks each intervention during the interview with an intervention number and a speaker label
+
+AudioRenamer.py: Automatically iterates through every audio file for a given participant, and builds directories to support further processing via Praat scripts. 
+
