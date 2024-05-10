@@ -22,16 +22,16 @@ count = 0
 
 skipChars = [".", ",", " ", "[", "]"]
 
+
 def check_valid_run(run):
-    validChar = False
+    valid_char = False
     for char in run.text:
         if char not in skipChars:
-            validChar = True
-    if validChar:
+            valid_char = True
+    if valid_char:
         return True
     else:
         return False
-
 
 
 for para in doc.paragraphs:
@@ -40,7 +40,7 @@ for para in doc.paragraphs:
         newP.add_run(para.text)
     else:
         if any((run.bold and check_valid_run(run)) for run in para.runs) and not last_speaker_B:
-            newP.add_run(f'B{count+1}: {para.text}').bold = True
+            newP.add_run(f'B{count + 1}: {para.text}').bold = True
             last_speaker_B = True
             count += 1
         elif any((run.bold and check_valid_run(run)) for run in para.runs) and last_speaker_B:
@@ -90,7 +90,7 @@ def bold_check(paragraph):
 for para in doc.paragraphs:
     newP = newDoc.add_paragraph('')
 
-    # check for double paranthetical
+    # check for double parenthetical
     if parenthetical_check(para):
         newP.add_run(para.text)
     elif bold_check(para):
