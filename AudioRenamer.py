@@ -8,18 +8,18 @@ audio_dir = os.path.join(desktop_path, 'AudioInput')
 
 audio_files = os.listdir(audio_dir)
 
-template = "VBS1_{trial}_{type}_{run}_{pre/post}.wav"
+template = "VMM3_{trial}_{type}_{run}_{pre/post}.wav"
 
-run1b = "24_segments"
-run2b = "20_segments"
-run3b = "35_segments"
-run1a = "50_pre_segments"
-run2a = "39_pre_segments"
-run3a = "47_pre_segments"
+run1b = "25_segments"
+run2b = "47_segments"
+run3b = "14_segments"
+run1a = "55_pre_segments"
+run2a = "44_pre_segments"
+run3a = "13_29_pre_segments"
 
 # handles directory creation
-headFolder = "AG Organized Audio"
-subject = "AG"
+headFolder = "ET Organized Audio"
+subject = "ET"
 
 os.makedirs(f"/Users/coleman/Desktop/AudioInput/{headFolder}/Bpress_equivalent")
 os.makedirs(f"/Users/coleman/Desktop/AudioInput/{headFolder}/Post")
@@ -155,7 +155,7 @@ for filename in audio_files:
                     shutil.copy(itemFileRenamed, f"/Users/coleman/Desktop/AudioInput/{headFolder}/Pre/RUN3")
                     if "Hv" in templateCopy:
                         shutil.copy(itemFileRenamed, f"/Users/coleman/Desktop/AudioInput/{headFolder}/Pre/RUN3/{subject}_Hv_RUN3_pre")
-                    elif "Gl" in templateCopy: 
+                    elif "Gl" in templateCopy:
                         shutil.copy(itemFileRenamed, f"/Users/coleman/Desktop/AudioInput/{headFolder}/Pre/RUN3/{subject}_Gl_RUN3_pre")
                     elif "Bv" in templateCopy:
                         shutil.copy(itemFileRenamed, f"/Users/coleman/Desktop/AudioInput/{headFolder}/Pre/RUN3/{subject}_Bv_RUN3_pre")
