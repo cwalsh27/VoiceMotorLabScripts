@@ -8,7 +8,6 @@ new_doc_path = os.path.join(desktop_path, r'TextFiles/outputFile')
 doc = Document(doc_path)
 newDoc = Document()
 
-
 # appending line labels
 last_speaker_B = False
 lines = []
