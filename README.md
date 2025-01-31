@@ -1,5 +1,5 @@
 # Voice & Motor Lab
-WIP Scripts to extract key data points collected during MRI analysis under Aude Cardona & Dr. Katherine Verdolini Abbott, Udel Voice & Motor Lab
+WIP Scripts to extract key data points collected during MRI analysis, Udel Voice & Motor Lab
 
 EPrimeDataExtraction.py: Takes in data sheets from E-Prime scripts and isolates the best trials (as identified by subject input) and other variables of interest. Outputs a new sheet with the desired data, as well as text files with the preferred vocal exercises to isolate any bias towards certain vowel sounds/exercises. 
 
