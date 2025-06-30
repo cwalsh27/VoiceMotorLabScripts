@@ -74,15 +74,15 @@ for i in range(int(segment_length)):
 
 
 # Code for identifying golden point (start of the first glide vocal exercise, aka trial 3)
-goldenPoint = 0
-for i in range(3100, 3400):
-    currentAverage = averages[i]
-    if averages[i] <= 100:
-        if (averages[i-1] <= 100) and (averages[i+1] <= 100) and (averages[i+2] <= 100) and (averages[i+3] <= 100):
-            goldenPoint = i / 100 - 0.01
-            break
+# goldenPoint = 0
+# for i in range(3100, 3400):
+#    currentAverage = averages[i]
+#    if averages[i] <= 100:
+#        if (averages[i-1] <= 100) and (averages[i+1] <= 100) and (averages[i+2] <= 100) and (averages[i+3] <= 100):
+#            goldenPoint = i / 100 - 0.01
+#            break
 
-# goldenPoint = 32.8
+goldenPoint = 32.8
 approvedGolden = input(f"The start point is {goldenPoint}. Is this correct? (Y/N)")
 
 # CODE FOR SPLITTING INTO INTERVALS; only when golden point is correct
