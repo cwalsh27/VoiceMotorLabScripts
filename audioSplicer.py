@@ -2,7 +2,7 @@ import wave
 import os
 import glob
 
-def split_wav_with_labels(input_file, output_dir, labels, times, initials, run_number):
+def split_wav_with_labels(input_file, output_dir, labels, times, initials, run_number, prepost):
     """
     Split a .wav file according to given labels and start-times.
 
@@ -33,7 +33,7 @@ def split_wav_with_labels(input_file, output_dir, labels, times, initials, run_n
             wav.setpos(start_frame)
             frames = wav.readframes(num_frames)
 
-            output_file = os.path.join(output_dir, f"{initials}_run{run_number}_{i:03d}_{label}.wav")
+            output_file = os.path.join(output_dir, f"{initials}_run{run_number}_{prepost}_{i:03d}_{label}.wav")
 
             with wave.open(output_file, 'wb') as out_wav:
                 out_wav.setnchannels(n_channels)
@@ -100,11 +100,13 @@ if __name__ == "__main__":
 
         run_number = file.lower().split("run")[-1][0]
 
+        prepost_letter = file.split("_")[-1].split(".wav")[0]
+
 
         if "run1" in file.lower() or "run4" in file.lower() or "run6" in file.lower():
-            split_wav_with_labels(file, output_dir, labels146, times146, subject_initials, run_number)
+            split_wav_with_labels(file, output_dir, labels146, times146, subject_initials, run_number, prepost_letter)
         elif "run2" in file.lower() or "run3" in file.lower() or "run5" in file.lower():
-            split_wav_with_labels(file, output_dir, labels235, times235, subject_initials, run_number)
+            split_wav_with_labels(file, output_dir, labels235, times235, subject_initials, run_number, prepost_letter)
         else:
             print(f"Run not recognized in {file}. Confirm that 'runx' is included in the file name denoting the run number. (i.e., 'run2')")
             
