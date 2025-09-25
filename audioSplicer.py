@@ -62,13 +62,6 @@ if __name__ == "__main__":
         "nosing","Fixation2","Fixation2","Fixation2"
     ]
 
-    times146 = [
-        8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60,
-        64, 68, 72, 76, 80, 84, 88, 92, 96,100,104,108,112,116,120,
-        124,128,132,136,140,144,148,152,156,160,164,168,172,176,180,
-        184,188,192,196,200,204,208,212,216,220,224,228,232,236,240,
-        244,248,252,256,260
-    ]
 
     labels235 = [
         "nosing","cue-nosing","nosing","cue-nosing","nosing","Fixation1","Fixation1","cue-sing",
@@ -82,13 +75,11 @@ if __name__ == "__main__":
         "sing","Fixation2","Fixation2","Fixation2"
     ]
 
-    times235 = [
-        8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60,
-        64, 68, 72, 76, 80, 84, 88, 92, 96,100,104,108,112,116,120,
-        124,128,132,136,140,144,148,152,156,160,164,168,172,176,180,
-        184,188,192,196,200,204,208,212,216,220,224,228,232,236,240,
-        244,248,252,256,260
-    ]
+    times = [0,   4,   8,  12,  16,  20,  24,  28,  32,  36,  40,  44,  48,
+        52,  56,  60,  64,  68,  72,  76,  80,  84,  88,  92,  96, 100,
+       104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 148, 152,
+       156, 160, 164, 168, 172, 176, 180, 184, 188, 192, 196, 200, 204,
+       208, 212, 216, 220, 224, 228, 232, 236, 240, 244, 248, 252]
 
     directory_input = input("Enter the full directory of the folder with your .wav files.")
     files = glob.glob(directory_input + "/*/*.wav", recursive=True)
@@ -108,9 +99,9 @@ if __name__ == "__main__":
 
 
         if "run1" in file.lower() or "run4" in file.lower() or "run6" in file.lower():
-            split_wav_with_labels(file, output_dir, labels146, times146, subject_initials, run_number, prepost_letter)
+            split_wav_with_labels(file, output_dir, labels146, times, subject_initials, run_number, prepost_letter)
         elif "run2" in file.lower() or "run3" in file.lower() or "run5" in file.lower():
-            split_wav_with_labels(file, output_dir, labels235, times235, subject_initials, run_number, prepost_letter)
+            split_wav_with_labels(file, output_dir, labels235, times, subject_initials, run_number, prepost_letter)
         else:
             print(f"Run not recognized in {file}. Confirm that 'runx' is included in the file name denoting the run number. (i.e., 'run2')")
             
