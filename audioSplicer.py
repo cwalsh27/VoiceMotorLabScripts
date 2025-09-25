@@ -26,22 +26,26 @@ def split_wav_with_labels(input_file, output_dir, labels, times, initials, run_n
         start_frames.append(total_frames)  # add end-of-file marker
 
         for i, label in enumerate(labels):
-            start_frame = start_frames[i]
-            end_frame = start_frames[i + 1]
-            num_frames = end_frame - start_frame
+            try: 
+                start_frame = start_frames[i]
+                end_frame = start_frames[i + 1]
+                num_frames = end_frame - start_frame
 
-            wav.setpos(start_frame)
-            frames = wav.readframes(num_frames)
+                wav.setpos(start_frame)
+                frames = wav.readframes(num_frames)
 
-            output_file = os.path.join(output_dir, f"{initials}_run{run_number}_{prepost}_{i:03d}_{label}.wav")
+                output_file = os.path.join(output_dir, f"{initials}_run{run_number}_{prepost}_{i:03d}_{label}.wav")
 
-            with wave.open(output_file, 'wb') as out_wav:
-                out_wav.setnchannels(n_channels)
-                out_wav.setsampwidth(samp_width)
-                out_wav.setframerate(frame_rate)
-                out_wav.writeframes(frames)
+                with wave.open(output_file, 'wb') as out_wav:
+                    out_wav.setnchannels(n_channels)
+                    out_wav.setsampwidth(samp_width)
+                    out_wav.setframerate(frame_rate)
+                    out_wav.writeframes(frames)
 
-            print(f"Saved {output_file}")
+                print(f"Saved {output_file}")
+
+            except Exception as e:
+                print(f"Audio was likely cropped too short for final trial. Failed at label: {label}. Error message: {e}")
 
 
 if __name__ == "__main__":
